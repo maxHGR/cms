@@ -44,7 +44,7 @@ export default function Home() {
     const docComponent = doc.map((item) => {
       <div id={item[0]}>
         <p>{item[2]}</p>
-        <Image src={item[1]} alt={item[3]} />
+        <Image src={item[1]} alt={item[3]} width={20} height={20} />
       </div>
     })  
 
@@ -86,8 +86,9 @@ export default function Home() {
       <div className="border border-black h-full">
         {doc.map((item) => {
           return (
-            <div key={item[0]}>
-              <Image src={item[1]} alt={item[2]} />
+            <div className="w-2/5 border border-black flex-row justify-center" key={item[0]}>
+              <Image src={item[1]} height={50} width={100} alt={item[2]} />
+              <p>{item[1]}</p>
               <p>{item[2]}</p>
             </div>
           )
