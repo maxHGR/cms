@@ -5,30 +5,33 @@ import Image from "next/image";
 
 export default function Home() {
   const [collectionKey, setCollectionKey] = useState("");
-  const [doc, setDocument] = useState([]);
+  const [doc, setDocument] = useState();
   const [field, setField] = useState();
+
+ 
 
   useEffect(() => {
 
     const loadDoc = async () => {
       const docObject = await getDocument("categories", "hats");
-
+      console.log(docObject.items)
+/*    
       const docArray = [];
       docObject.items.forEach(item => {
         const itemArray = [item.id, item.imageUrl, item.name, item.price];
         docArray.push(itemArray)
       });
-
-      console.log(docArray)
-      setDocument(docArray)
+*/
+      //console.log(docArray)
+      setDocument(docObject.items)
+      
     }
 
     loadDoc();
 
   }, [])
-   console.log(doc)
-
-
+   
+console.log (doc)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,12 +44,6 @@ export default function Home() {
   }
 
 
-    const docComponent = doc.map((item) => {
-      <div id={item[0]}>
-        <p>{item[2]}</p>
-        <Image src={item[1]} alt={item[3]} width={20} height={20} />
-      </div>
-    })  
 
 
 
@@ -67,7 +64,7 @@ export default function Home() {
             className="border border-black rounded-sm m-5 w-3/4 h-60"
             type="text"
             value={doc}
-            onChange={(e) => setDocument(e.target.value)}
+            onChange={(e) => setDocument(Array.from(e.target.value))}
           />
         </label>
         <br/>
@@ -82,18 +79,20 @@ export default function Home() {
         <br/>
         <input className="border border-blue-500 p-3 rounded-md" type="submit" />
       </form>
-      <button onClick={handleOnClick} >Google</button>
+      <button onClick={handleOnClick}>Google</button>
+      
       <div className="border border-black h-full">
-        {doc.map((item) => {
+        {doc?.map((item) => {
           return (
-            <div className="w-2/5 border border-black flex-row justify-center" key={item[0]}>
-              <Image src={item[1]} height={50} width={100} alt={item[2]} />
-              <p>{item[1]}</p>
-              <p>{item[2]}</p>
+            <div className="w-2/5 border border-black flex-row justify-center" key={item.id}>
+              <Image src={item.imageUrl} height={100} width={50} alt={item.name} />
+              <p>{item.name}</p>
+              <input value={item.price} type="text"></input>
             </div>
           )
         })}
       </div>
+      
     </main>
   )
 }
