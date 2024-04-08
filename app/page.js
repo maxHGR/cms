@@ -1,37 +1,39 @@
 "use client"
-import { useEffect, useState } from "react";
-import { addDocument, getDocument, signInWithGooglePopup } from "./utils/firebase.utils";
 import Image from "next/image";
+import { useEffect, useState, useContext } from "react";
+
+import { ProductsContext } from "./context/products.context";
+import { addDocument, getDocument, signInWithGooglePopup } from "./utils/firebase.utils";
+
+import ProductCard from "./components/product-card/product-card.component";
+import Products from "./components/products/products.component";
 
 export default function Home() {
   const [collectionKey, setCollectionKey] = useState("");
   const [doc, setDocument] = useState();
   const [field, setField] = useState();
 
- 
+  let loadContext = useContext(ProductsContext);
 
   useEffect(() => {
-
+    setDocument(loadContext.products);
+    console.log(loadContext);
+    // returns an Object
+  }, [loadContext])
+  
+  console.log(doc)
+/*
+  useEffect(() => {
     const loadDoc = async () => {
       const docObject = await getDocument("categories", "hats");
       console.log(docObject.items)
-/*    
-      const docArray = [];
-      docObject.items.forEach(item => {
-        const itemArray = [item.id, item.imageUrl, item.name, item.price];
-        docArray.push(itemArray)
-      });
-*/
-      //console.log(docArray)
-      setDocument(docObject.items)
-      
+      setDocument(docObject.items)      
     }
-
     loadDoc();
-
   }, [])
-   
-console.log (doc)
+  console.log("doc")
+  console.log (doc)
+*/
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,10 +44,6 @@ console.log (doc)
   const handleOnClick =  () => {
     signInWithGooglePopup();
   }
-
-
-
-
 
   return (
     <main className="flex flex-col h-screen">
@@ -63,7 +61,7 @@ console.log (doc)
           <input 
             className="border border-black rounded-sm m-5 w-3/4 h-60"
             type="text"
-            value={doc}
+            defaultValue={doc && doc[0].name}
             onChange={(e) => setDocument(Array.from(e.target.value))}
           />
         </label>
@@ -81,16 +79,14 @@ console.log (doc)
       </form>
       <button onClick={handleOnClick}>Google</button>
       
-      <div className="border border-black h-full">
-        {doc?.map((item) => {
-          return (
-            <div className="w-2/5 border border-black flex-row justify-center" key={item.id}>
-              <Image src={item.imageUrl} height={100} width={50} alt={item.name} />
-              <p>{item.name}</p>
-              <input value={item.price} type="text"></input>
-            </div>
-          )
-        })}
+      <div className="border border-black h-full"> 
+        {
+          doc?.map((item) => {
+            return (
+              <ProductCard key={item.id} item={item} />
+            )
+          })
+        }
       </div>
       
     </main>
