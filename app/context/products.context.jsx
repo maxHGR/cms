@@ -1,6 +1,5 @@
 "use client"
 import { createContext, useEffect, useState } from "react"
-
 import { getDocument } from "../utils/firebase.utils";
 
 
@@ -23,17 +22,6 @@ export const ProductsProvider = ({children}) => {
   }, [])
 
 
-  /*
-      create a function that 
-  */
-
-  return (
-    <ProductsContext.Provider value={value}>
-      {children}
-    </ProductsContext.Provider>
-  )
-}
-
 /*
     every Product Card gets a function 
     where it can update the PRODUCT OBJECT
@@ -42,4 +30,13 @@ export const ProductsProvider = ({children}) => {
     through bracket notation
 
     products[item] = 
+
+    ?
 */
+
+  return (
+    <ProductsContext.Provider value={value}>
+      {children}
+    </ProductsContext.Provider>
+  )
+}
