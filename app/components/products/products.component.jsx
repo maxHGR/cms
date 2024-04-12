@@ -15,6 +15,11 @@ const Products = () => {
     // returns an Object
   }, [loadContext])
 
+  /*
+      Future code:
+      Drop List that lets you select the Category to be displayed
+  */
+
   return (
     <>
       <p>PRODUCTS</p>

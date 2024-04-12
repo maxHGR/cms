@@ -13,8 +13,7 @@ export default function Home() {
 
   /*
     Database is only mutable for authenticated Users
-    which is ristricted in the firebase rules (only for max...@....com)
-    
+    which is ristricted in the firebase rules (only for user with certain ID)
   */
 
   const handleOnClick =  () => {
