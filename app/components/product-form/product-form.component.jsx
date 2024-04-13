@@ -11,7 +11,6 @@ const ProductForm = () => {
 
   useEffect(() => {
     setDocument(loadContext.products);
-    console.log(loadContext);
     // returns an Object
   }, [loadContext])
   

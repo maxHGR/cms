@@ -1,31 +1,37 @@
-"use client"
 import { useContext, useEffect, useState } from "react"
 import { ProductsContext } from "@/app/context/products.context"
+import Select from "react-select"
 
 import ProductCard from "../product-card/product-card.component"
 
+
+
 const Products = () => {
-  const [doc, setDocument] = useState();
-
-  let loadContext = useContext(ProductsContext);
-
-  useEffect(() => {
-    setDocument(loadContext.products);
-    console.log(loadContext);
-    // returns an Object
-  }, [loadContext])
+  const { 
+    products, 
+    categories, 
+    setSelectedCategory 
+  } = useContext(ProductsContext);
 
   /*
       Future code:
-      Drop List that lets you select the Category to be displayed
+      Drop List (react-select?) 
+      that lets you select the Category to be displayed
+
+      create a list of categories in "ProductsContext" which reads
+      the categories of the database and displays it in the select input
   */
 
   return (
     <>
-      <p>PRODUCTS</p>
-      <div className="flex flex-wrap gap-5 border border-black h-full"> 
+      <h1 className="mx-auto text-2xl tracking-widest">PRODUCTS</h1>
+      <Select
+        options={categories}
+        onChange={(e) => {setSelectedCategory(e.value)}}
+      />
+      <div className="flex flex-wrap border border-black h-full"> 
         {
-          doc?.map((item) => {
+          products?.map((item) => {
             return (
               <ProductCard key={item.id} item={item} />
             )

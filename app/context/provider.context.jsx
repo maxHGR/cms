@@ -1,6 +1,5 @@
 "use client"
 
-import React from 'react'
 import { ProductsProvider } from './products.context'
 
 export const ContextProvider = ({children}) => {

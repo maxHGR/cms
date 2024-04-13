@@ -4,7 +4,6 @@ import { useContext } from "react"
 import { ProductsContext, updateProduct } from "./../../context/products.context"
 
 
-
 const ProductCard = ({item}) => {
 
   const { updateProduct } = useContext(ProductsContext);
@@ -24,21 +23,27 @@ const ProductCard = ({item}) => {
     }
   }
 
+  //FIX Image URL ERROR
+
   const onChangeHandler = (e) => {
     productObject[e.target.placeholder] = e.target.value;
-    console.log(productObject)
+    console.log(productObject);
   }
 
+
+  
+  // ERROR:
+  // adds the same product to the Array again,
+  // so that it´s doubled
+  // and keeps it even through Category change
   const onSubmit = () => {
     try {
-      if(!productObject.imageUrl.startsWith('http')){return};
-    
+      //if(!productObject[item.id - 1].imageUrl.startsWith('http')){return};
       updateProduct(productObject);
       alert("successfully updated product");
     } catch (error) {
       alert(`failed to update product: ${error}`);
     }
-    
   }
   
   // FIX 
@@ -47,11 +52,11 @@ const ProductCard = ({item}) => {
 
   return (
     <>
-      <div className="flex-row justify-center items-center w-1/3 border border-black rounded-lg">
-        {item.imageUrl && <Image src={item.imageUrl} onError={event => alert(event)} height={100} width={50} alt={item.name} />}
-        <input defaultValue={item.imageUrl} placeholder="imageUrl" type="text" onChange={(e) => onChangeHandler(e)} />
-        <input defaultValue={item.name} placeholder="name" type="text" onChange={(e) => onChangeHandler(e)} />
-        <input defaultValue={item.price} placeholder="price" type="text" onChange={(e) => onChangeHandler(e)} />
+      <div className="flex-row justify-center items-center w-1/4 p-3 border border-black rounded-lg">
+        <Image src={productObject.imageUrl} onError={(e) => {alert(e)}} height={100} width={50} alt={productObject.name} />
+        <input defaultValue={productObject.imageUrl} placeholder="imageUrl" type="text" onChange={(e) => onChangeHandler(e)} className="w-full border"/>
+        <input defaultValue={productObject.name} placeholder="name" type="text" onChange={(e) => onChangeHandler(e)} className="w-full border"/>
+        <input defaultValue={productObject.price} placeholder="price" type="text" onChange={(e) => onChangeHandler(e)} className="w-full border"/>
         <button className="border bg-green-300 rounded-md p-1" onClick={() => {onSubmit()}}>update</button>
       </div>
     </>
