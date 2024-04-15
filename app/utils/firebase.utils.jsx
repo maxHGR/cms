@@ -14,6 +14,7 @@ import {
   doc,
   getDoc,
   setDoc,
+  updateDoc,
   collection,
   writeBatch,
   query,
@@ -81,6 +82,11 @@ export const getDocument = async (collection, document) => {
   } else {
     alert("No such document!")
   }
+}
+
+export const updateDocument = async (collection, document, items) => {
+  const docRef = doc(db, collection, document);
+  await updateDoc(docRef, {items});
 }
 
 export const getCategoriesAndDocuments = async () => {

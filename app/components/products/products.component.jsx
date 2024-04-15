@@ -22,6 +22,7 @@ const Products = () => {
     <>
       <h1 className="mx-auto text-2xl tracking-widest">PRODUCTS</h1>
       <Select
+        placeholder="hats"
         options={categories}
         onChange={(e) => {setSelectedCategory(e.value)}}
       />

@@ -1,6 +1,6 @@
 "use client"
 import { createContext, useEffect, useState } from "react"
-import { getDocument } from "../utils/firebase.utils";
+import { getDocument, updateDocument } from "../utils/firebase.utils";
 
 
 export const ProductsContext = createContext({
@@ -45,7 +45,8 @@ export const ProductsProvider = ({children}) => {
   }
 */
   const updateProduct = (updatedProduct) => {
-    setProducts((prevProducts) => {
+    // prevProducts = current state [products Array]
+      setProducts((prevProducts) => {
       console.log(prevProducts);
       const productIndex = prevProducts.findIndex((product) => product.id === updatedProduct.id);
 
@@ -61,6 +62,8 @@ export const ProductsProvider = ({children}) => {
       console.log(products)
       return newProducts;
     });
+    
+    updateDocument("categories", selectedCategory, products)
   };
   
   const value = {
