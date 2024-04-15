@@ -1,6 +1,6 @@
 "use client"
 import { createContext, useEffect, useState } from "react"
-import { getDocument, updateDocument } from "../utils/firebase.utils";
+import { getCategories, getDocument, updateDocument } from "../utils/firebase.utils";
 
 
 export const ProductsContext = createContext({
@@ -25,29 +25,30 @@ export const ProductsProvider = ({children}) => {
     ]
   );
 
+  // pull categories from firebase db
+  useEffect(() => {
+    const loadColl = async () => {
+      const categoriesObject = await getCategories();
+      setCategories(categoriesObject);
+    }
+    // ERROR
+    // doesnt update the categories Array right, or some other problem
+    // loadColl();
+    console.log(categories)
+  }, [])
+
   useEffect(() => {
     const loadDoc = async () => {
       const docObject = await getDocument("categories", selectedCategory ? selectedCategory : "hats");
       setProducts(docObject.items)
     }
     loadDoc();
-    console.log(selectedCategory)
   }, [selectedCategory])
 
-/*
-  const updateProduct = (item) => {
-    const productsArray = [...products];
-    const index = item.id - 1;
-    productsArray.splice(index, 1, item);
-    setProducts(productsArray);
-    console.log(productsArray);
-    console.log(item)
-  }
-*/
+  
   const updateProduct = (updatedProduct) => {
-    // prevProducts = current state [products Array]
+    // prevProducts === current state [products Array]
       setProducts((prevProducts) => {
-      console.log(prevProducts);
       const productIndex = prevProducts.findIndex((product) => product.id === updatedProduct.id);
 
       if (productIndex === -1) {
@@ -58,8 +59,6 @@ export const ProductsProvider = ({children}) => {
       // Replace the product at productIndex with updatedProduct
       const newProducts = [...prevProducts];
       newProducts[productIndex] = updatedProduct;
-      console.log(newProducts)
-      console.log(products)
       return newProducts;
     });
     

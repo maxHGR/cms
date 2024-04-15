@@ -22,10 +22,8 @@ const ProductCard = ({item}) => {
     console.log(productObject);
   }
 
-  // ERROR:
-  // adds the same product to the Array again,
-  // so that it´s doubled
-  // and keeps it even through Category change
+  // FIX 
+  // URL problem
   const onSubmit = () => {
     try {
       //if(!productObject[item.id - 1].imageUrl.startsWith('http')){return};
@@ -35,10 +33,7 @@ const ProductCard = ({item}) => {
       alert(`failed to update product: ${error}`);
     }
   }
-  
-  // FIX 
-  // Image catches an Error when the URL is invalid, catch the error and
-  // display the User that the URL is invalid
+
   return (
     <>
       <div className="flex-row justify-center items-center w-1/4 p-3 border border-black rounded-lg">

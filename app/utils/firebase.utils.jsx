@@ -89,6 +89,15 @@ export const updateDocument = async (collection, document, items) => {
   await updateDoc(docRef, {items});
 }
 
+export const getCategories = async () => {
+  const catAndDocs = await getCategoriesAndDocuments();
+  console.log(catAndDocs)
+  const categoriesArray = []
+  catAndDocs.map((doc) => {
+    categoriesArray.push({value: doc.title, label: doc.title})
+  });
+}
+
 export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, 'categories');
   const q = query(collectionRef);

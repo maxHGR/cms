@@ -10,14 +10,7 @@ const Products = () => {
     categories, 
     setSelectedCategory 
   } = useContext(ProductsContext);
-  /*
-      Future code:
-      Drop List (react-select?) 
-      that lets you select the Category to be displayed
 
-      create a list of categories in "ProductsContext" which reads
-      the categories of the database and displays it in the select input
-  */
   return (
     <>
       <h1 className="mx-auto text-2xl tracking-widest">PRODUCTS</h1>
