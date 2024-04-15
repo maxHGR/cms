@@ -1,10 +1,8 @@
 import { useContext, useEffect, useState } from "react"
-import { ProductsContext } from "@/app/context/products.context"
 import Select from "react-select"
 
+import { ProductsContext } from "@/app/context/products.context"
 import ProductCard from "../product-card/product-card.component"
-
-
 
 const Products = () => {
   const { 
@@ -12,7 +10,6 @@ const Products = () => {
     categories, 
     setSelectedCategory 
   } = useContext(ProductsContext);
-
   /*
       Future code:
       Drop List (react-select?) 
@@ -21,7 +18,6 @@ const Products = () => {
       create a list of categories in "ProductsContext" which reads
       the categories of the database and displays it in the select input
   */
-
   return (
     <>
       <h1 className="mx-auto text-2xl tracking-widest">PRODUCTS</h1>

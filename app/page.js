@@ -1,17 +1,14 @@
 "use client"
-
 import { signInWithGooglePopup } from "./utils/firebase.utils";
 
 import Products from "./components/products/products.component";
 import ProductForm from "./components/product-form/product-form.component";
 
 export default function Home() {
-
   /*
     Database is only mutable for authenticated Users
     which is ristricted in the firebase rules (only for user with certain ID)
   */
-
   const handleOnClick =  () => {
     signInWithGooglePopup();
   }

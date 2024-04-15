@@ -1,18 +1,12 @@
 "use client"
 import Image from "next/image"
 import { useContext } from "react"
-import { ProductsContext, updateProduct } from "./../../context/products.context"
+import { ProductsContext } from "./../../context/products.context"
 
 
 const ProductCard = ({item}) => {
-
   const { updateProduct } = useContext(ProductsContext);
   const productObject = item;
-
-  // functions that sum up the item object (id, name, url, price) 
-  // and change if the input fields of the product card are changed
-  // then the summed up item should replace the item in the original 
-  // product object array, which is identified through id (id = index)
 
   const isValidUrl = (string) => {
     try {
@@ -23,15 +17,11 @@ const ProductCard = ({item}) => {
     }
   }
 
-  //FIX Image URL ERROR
-
   const onChangeHandler = (e) => {
     productObject[e.target.placeholder] = e.target.value;
     console.log(productObject);
   }
 
-
-  
   // ERROR:
   // adds the same product to the Array again,
   // so that it´s doubled
@@ -49,7 +39,6 @@ const ProductCard = ({item}) => {
   // FIX 
   // Image catches an Error when the URL is invalid, catch the error and
   // display the User that the URL is invalid
-
   return (
     <>
       <div className="flex-row justify-center items-center w-1/4 p-3 border border-black rounded-lg">

@@ -64,13 +64,9 @@ export const addCollectionAndDocuments = async (
   console.log('done');
 };
 
-export const addDocument = async () => {
+export const addDocument = async (key, document, field) => {
   try{
-    await setDoc(doc(db, "cities", "LA"), {
-      name: "Los Angeles",
-      state: "CA",
-      country: "USA"
-    });
+    await setDoc(doc(db, key, document), {field});
   } catch(e){
     console.error("Error adding document: ", e);
   }

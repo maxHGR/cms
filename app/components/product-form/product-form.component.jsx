@@ -1,24 +1,18 @@
-import { useContext, useState, useEffect } from "react";
-import { ProductsContext } from "@/app/context/products.context";
+import { useState } from "react";
 import { addDocument } from "@/app/utils/firebase.utils";
 
 const ProductForm = () => {
-    const [collectionKey, setCollectionKey] = useState("");
+  const [collectionKey, setCollectionKey] = useState("");
   const [doc, setDocument] = useState();
   const [field, setField] = useState();
-
-  let loadContext = useContext(ProductsContext);
-
-  useEffect(() => {
-    setDocument(loadContext.products);
-    // returns an Object
-  }, [loadContext])
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     alert(`${collectionKey}{${doc}: ${field}}`);
-    addDocument();
+    addDocument(collectionKey, doc, field);
+    // ERROR
+    // shows the "field" string as a key in the uploaded document
+    // fix so that "field" doesnt gets displayed 
   }
 
   return (
@@ -37,7 +31,7 @@ const ProductForm = () => {
           <input 
             className="border border-black rounded-sm m-5 w-3/4 h-60"
             type="text"
-            defaultValue={doc && doc[0].name}
+            defaultValue={doc}
             onChange={(e) => setDocument(e.target.value)}
           />
         </label>

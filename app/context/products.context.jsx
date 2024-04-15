@@ -11,7 +11,10 @@ export const ProductsContext = createContext({
   updateProduct: () => {},
 });
 
+
 export const ProductsProvider = ({children}) => {
+  const [products, setProducts] = useState();
+  const [selectedCategory, setSelectedCategory] = useState();
   const [categories, setCategories] = useState(
     [
       {'value': 'hats', 'label': 'hats'},
@@ -21,9 +24,6 @@ export const ProductsProvider = ({children}) => {
       {'value': 'mens', 'label': 'mens'},
     ]
   );
-  const [products, setProducts] = useState();
-  const [selectedCategory, setSelectedCategory] = useState();
-
 
   useEffect(() => {
     const loadDoc = async () => {
@@ -34,10 +34,7 @@ export const ProductsProvider = ({children}) => {
     console.log(selectedCategory)
   }, [selectedCategory])
 
-
-  // ERROR:
-  // adds the same element in the Array again,
-  // and keeps it even through Category change
+/*
   const updateProduct = (item) => {
     const productsArray = [...products];
     const index = item.id - 1;
@@ -46,14 +43,26 @@ export const ProductsProvider = ({children}) => {
     console.log(productsArray);
     console.log(item)
   }
+*/
+  const updateProduct = (updatedProduct) => {
+    setProducts((prevProducts) => {
+      console.log(prevProducts);
+      const productIndex = prevProducts.findIndex((product) => product.id === updatedProduct.id);
+
+      if (productIndex === -1) {
+        // Product not found, handle error
+        return prevProducts;
+      }
+
+      // Replace the product at productIndex with updatedProduct
+      const newProducts = [...prevProducts];
+      newProducts[productIndex] = updatedProduct;
+      console.log(newProducts)
+      console.log(products)
+      return newProducts;
+    });
+  };
   
-  /*
-  every Product Card gets a function 
-  where it can update the PRODUCT OBJECT
-  the function utilizes the "updateDocument" Function
-  from Firebase, and it accesses the demanded Document 
-  through bracket notation
-  */
   const value = {
     categories,
     products, 
