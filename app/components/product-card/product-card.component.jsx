@@ -43,7 +43,7 @@ const ProductCard = ({item}) => {
   return (
     <>
       <div className="flex-row justify-center items-center w-1/4 p-3 border border-black rounded-lg">
-        <Image src={productObject.imageUrl} height={100} width={50} alt={productObject.name} />
+        <Image src={productObject.imageUrl} height={100} width={50} alt={productObject.name} className="mx-auto"/>
         <input defaultValue={productObject.imageUrl} placeholder="imageUrl" type="text" onChange={(e) => onChangeHandler(e)} className="w-full border"/>
         <input defaultValue={productObject.name} placeholder="name" type="text" onChange={(e) => onChangeHandler(e)} className="w-full border"/>
         <input defaultValue={productObject.price} placeholder="price" type="text" onChange={(e) => onChangeHandler(e)} className="w-full border"/>
