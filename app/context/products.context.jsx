@@ -14,7 +14,7 @@ export const ProductsContext = createContext({
 
 export const ProductsProvider = ({children}) => {
   const [products, setProducts] = useState();
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState("hats");
   const [categories, setCategories] = useState(
     [
       {'value': 'hats', 'label': 'hats'},
@@ -33,8 +33,7 @@ export const ProductsProvider = ({children}) => {
     }
     // ERROR
     // doesnt update the categories Array right, or some other problem
-    // loadColl();
-    console.log(categories)
+    loadColl();
   }, [])
 
   useEffect(() => {
@@ -48,20 +47,33 @@ export const ProductsProvider = ({children}) => {
   
   const updateProduct = (updatedProduct) => {
     // prevProducts === current state [products Array]
+    if(updatedProduct.id !== "newID") {
       setProducts((prevProducts) => {
-      const productIndex = prevProducts.findIndex((product) => product.id === updatedProduct.id);
-
-      if (productIndex === -1) {
-        // Product not found, handle error
-        return prevProducts;
-      }
-
+        const productIndex = prevProducts.findIndex((product) => product.id === updatedProduct.id);
+  
+        if (productIndex === -1) {
+          alert("product not found")
+          // Product not found, handle error
+          return prevProducts;
+        }
+    
       // Replace the product at productIndex with updatedProduct
       const newProducts = [...prevProducts];
       newProducts[productIndex] = updatedProduct;
       return newProducts;
     });
-    
+    }
+
+    if(updatedProduct.id === "newID") {
+      alert(updatedProduct.id)
+      updatedProduct.id = products.length + 1;
+      setProducts((prevProducts) => {
+        const newProducts = [...prevProducts];
+        newProducts.push(updatedProduct);
+        return newProducts;
+      })
+    }
+
     updateDocument("categories", selectedCategory, products)
   };
   

@@ -91,7 +91,6 @@ export const updateDocument = async (collection, document, items) => {
 
 export const getCategories = async () => {
   const catAndDocs = await getCategoriesAndDocuments();
-  console.log(catAndDocs)
   const categoriesArray = []
   catAndDocs.map((doc) => {
     categoriesArray.push({value: doc.title, label: doc.title})

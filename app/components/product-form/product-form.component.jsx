@@ -8,7 +8,8 @@ const ProductForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`${collectionKey}{${doc}: ${field}}`);
+    console.log("product-form")
+    console.log(`${collectionKey}{${doc}: ${field}}`);
     addDocument(collectionKey, doc, field);
     // ERROR
     // shows the "field" string as a key in the uploaded document

@@ -27,17 +27,23 @@ const ProductCard = ({item}) => {
   const onSubmit = () => {
     try {
       //if(!productObject[item.id - 1].imageUrl.startsWith('http')){return};
+      //if(!window.confirm("update product?")) return;
       updateProduct(productObject);
-      alert("successfully updated product");
+      console.log("successfully updated product");
     } catch (error) {
-      alert(`failed to update product: ${error}`);
+      console.log(`failed to update product: ${error}`);
     }
   }
+
+  /*
+      code DELETE Button
+      so that a product card can be deleted
+  */
 
   return (
     <>
       <div className="flex-row justify-center items-center w-1/4 p-3 border border-black rounded-lg">
-        <Image src={productObject.imageUrl} onError={(e) => {alert(e)}} height={100} width={50} alt={productObject.name} />
+        <Image src={productObject.imageUrl} height={100} width={50} alt={productObject.name} />
         <input defaultValue={productObject.imageUrl} placeholder="imageUrl" type="text" onChange={(e) => onChangeHandler(e)} className="w-full border"/>
         <input defaultValue={productObject.name} placeholder="name" type="text" onChange={(e) => onChangeHandler(e)} className="w-full border"/>
         <input defaultValue={productObject.price} placeholder="price" type="text" onChange={(e) => onChangeHandler(e)} className="w-full border"/>
