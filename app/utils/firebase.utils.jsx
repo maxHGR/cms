@@ -65,9 +65,19 @@ export const addCollectionAndDocuments = async (
   console.log('done');
 };
 
-export const addDocument = async (key, document, field) => {
+export const addDocument = async (document, field) => {
   try{
-    await setDoc(doc(db, key, document), {field});
+    await setDoc(doc(db, 'categories', document),{
+      items: [
+        {
+          id: "newID",
+          imageUrl: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Plus_symbol.svg",
+          name: "new Product",
+          price: 0,
+        }
+      ],
+      title: `${document[0].toUpperCase()}${document.slice(1)}`,
+    });
   } catch(e){
     console.error("Error adding document: ", e);
   }
@@ -92,9 +102,10 @@ export const updateDocument = async (collection, document, items) => {
 export const getCategories = async () => {
   const catAndDocs = await getCategoriesAndDocuments();
   const categoriesArray = []
-  catAndDocs.map((doc) => {
-    categoriesArray.push({value: doc.title, label: doc.title})
+  catAndDocs?.map((doc) => {
+    categoriesArray.push({'value': doc.title, 'label': doc.title})
   });
+  return categoriesArray;
 }
 
 export const getCategoriesAndDocuments = async () => {

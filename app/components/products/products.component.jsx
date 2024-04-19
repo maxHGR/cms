@@ -19,16 +19,17 @@ const Products = () => {
       return categories;
     }
     loadCategories();
-  }, [])
+    console.log(categories)
+    console.log(categoriesArray)
+  }, [categories])
 
   return (
     <>
       <h1 className="mx-auto text-2xl tracking-widest">PRODUCTS</h1>
       <Select
-        inputId="my-select"
         placeholder="hats"
         options={categoriesArray}
-        onChange={(e) => {setSelectedCategory(e.value)}}
+        onChange={(e) => {setSelectedCategory(e.value.toLowerCase())}}
       />
       <div className="flex flex-wrap border border-black h-full"> 
         {

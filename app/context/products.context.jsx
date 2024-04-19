@@ -11,11 +11,7 @@ export const ProductsContext = createContext({
   updateProduct: () => {},
 });
 
-
-export const ProductsProvider = ({children}) => {
-  const [products, setProducts] = useState();
-  const [selectedCategory, setSelectedCategory] = useState("hats");
-  const [categories, setCategories] = useState(
+/*  categories
     [
       {'value': 'hats', 'label': 'hats'},
       {'value': 'jackets', 'label': 'jackets'},
@@ -23,16 +19,18 @@ export const ProductsProvider = ({children}) => {
       {'value': 'womens', 'label': 'womens'},
       {'value': 'mens', 'label': 'mens'},
     ]
-  );
+*/
 
-  // pull categories from firebase db
+export const ProductsProvider = ({children}) => {
+  const [products, setProducts] = useState();
+  const [selectedCategory, setSelectedCategory] = useState("hats");
+  const [categories, setCategories] = useState();
+
   useEffect(() => {
     const loadColl = async () => {
       const categoriesObject = await getCategories();
       setCategories(categoriesObject);
     }
-    // ERROR
-    // doesnt update the categories Array right, or some other problem
     loadColl();
   }, [])
 
@@ -66,7 +64,8 @@ export const ProductsProvider = ({children}) => {
 
     if(updatedProduct.id === "newID") {
       alert(updatedProduct.id)
-      updatedProduct.id = products.length + 1;
+      updatedProduct.id = `${selectedCategory[0]}${products.length + 1}`;
+      //updatedProduct.id = products.length + 1;
       setProducts((prevProducts) => {
         const newProducts = [...prevProducts];
         newProducts.push(updatedProduct);
@@ -76,11 +75,20 @@ export const ProductsProvider = ({children}) => {
 
     updateDocument("categories", selectedCategory, products)
   };
+
+  const deleteProduct = (idToDelete) => {
+    setProducts((prevProducts) => {
+      const newProducts = prevProducts.filter(product => product.id !== idToDelete);
+      updateDocument("categories", selectedCategory, newProducts);
+      return newProducts;
+    });
+  }
   
   const value = {
     categories,
     products, 
     updateProduct,
+    deleteProduct,
     selectedCategory,
     setSelectedCategory,
   };

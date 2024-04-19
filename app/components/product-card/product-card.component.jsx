@@ -5,7 +5,7 @@ import { ProductsContext } from "./../../context/products.context"
 
 
 const ProductCard = ({item}) => {
-  const { updateProduct } = useContext(ProductsContext);
+  const { updateProduct, deleteProduct } = useContext(ProductsContext);
   const productObject = item;
 
   const isValidUrl = (string) => {
@@ -35,10 +35,13 @@ const ProductCard = ({item}) => {
     }
   }
 
-  /*
-      code DELETE Button
-      so that a product card can be deleted
-  */
+  const onDelete = (idToDelete) => {
+    try {
+      deleteProduct(productObject.id);
+    } catch (error) {
+      alert(`failed to delete product: ${error}`)
+    }
+  }
 
   return (
     <>
@@ -47,7 +50,8 @@ const ProductCard = ({item}) => {
         <input defaultValue={productObject.imageUrl} placeholder="imageUrl" type="text" onChange={(e) => onChangeHandler(e)} className="w-full border"/>
         <input defaultValue={productObject.name} placeholder="name" type="text" onChange={(e) => onChangeHandler(e)} className="w-full border"/>
         <input defaultValue={productObject.price} placeholder="price" type="text" onChange={(e) => onChangeHandler(e)} className="w-full border"/>
-        <button className="border bg-green-300 rounded-md p-1" onClick={() => {onSubmit()}}>update</button>
+        <button className="border border-green-500 bg-green-300 rounded-md p-1 mt-4" onClick={() => {onSubmit()}}>update</button>
+        <button className="border border-red-500 bg-red-300 rounded-md p-1 ml-8" onClick={() => {onDelete()}}>delete</button>
       </div>
     </>
   )
