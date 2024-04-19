@@ -11,15 +11,6 @@ export const ProductsContext = createContext({
   updateProduct: () => {},
 });
 
-/*  categories
-    [
-      {'value': 'hats', 'label': 'hats'},
-      {'value': 'jackets', 'label': 'jackets'},
-      {'value': 'sneakers', 'label': 'sneakers'},
-      {'value': 'womens', 'label': 'womens'},
-      {'value': 'mens', 'label': 'mens'},
-    ]
-*/
 
 export const ProductsProvider = ({children}) => {
   const [products, setProducts] = useState();
@@ -51,11 +42,9 @@ export const ProductsProvider = ({children}) => {
   
         if (productIndex === -1) {
           alert("product not found")
-          // Product not found, handle error
           return prevProducts;
         }
     
-      // Replace the product at productIndex with updatedProduct
       const newProducts = [...prevProducts];
       newProducts[productIndex] = updatedProduct;
       return newProducts;
@@ -65,7 +54,6 @@ export const ProductsProvider = ({children}) => {
     if(updatedProduct.id === "newID") {
       alert(updatedProduct.id)
       updatedProduct.id = `${selectedCategory[0]}${products.length + 1}`;
-      //updatedProduct.id = products.length + 1;
       setProducts((prevProducts) => {
         const newProducts = [...prevProducts];
         newProducts.push(updatedProduct);

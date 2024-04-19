@@ -23,7 +23,7 @@ const ProductCard = ({item}) => {
   }
 
   // FIX 
-  // URL problem
+  // URL problem ?
   const onSubmit = () => {
     try {
       //if(!productObject[item.id - 1].imageUrl.startsWith('http')){return};
