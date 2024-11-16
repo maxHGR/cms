@@ -41,13 +41,17 @@ const Products = () => {
 
   return (
     <>
-      <h1 className="mx-auto text-2xl tracking-widest">PRODUCTS</h1>
-      <Select
-        placeholder="hats"
-        options={categoriesArray}
-        onChange={(e) => { setSelectedCategory(e.value.toLowerCase()) }}
-      />
-      <div className="flex flex-wrap border border-black h-full">
+      <div className="flex justify-center items-center my-8">
+        <h1 className="mx-auto text-2xl tracking-widest">PRODUCTS</h1>
+      </div>
+      <div className="mx-auto mb-8 w-4/5">
+        <Select
+          placeholder="Hats"
+          options={categoriesArray}
+          onChange={(e) => { setSelectedCategory(e.value.toLowerCase()) }}
+        />
+      </div>
+      <div className="flex flex-wrap h-full">
         {
           productsArray?.map((item) => {
             return (
@@ -55,7 +59,7 @@ const Products = () => {
             )
           })
         }
-        <div className="flex justify-center items-center w-1/4 ">
+        <div className="flex justify-center items-center  basis-1/3 md:basis-1/5 ">
           <button 
             className="flex justify-center items-center h-1/7 border border-blue-500 bg-blue-300 rounded-md p-2 my-auto mx-auto hover:bg-blue-400"
             onClick={addEmptyProduct}
