@@ -14,7 +14,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex flex-col h-screen">
+    <main className="flex flex-col h-full">
       <Products />
       <button onClick={handleOnClick} className="border-2 border-green-400 w-1/3 p-2 mx-auto rounded-md">Google</button>
       <ProductForm />
